@@ -8,7 +8,7 @@ const sqlite3 = require('sqlite3').verbose();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 
-const port = 3000
+const port = 8000
 const saltRounds = 10;
 
 app.listen(port, () => {
