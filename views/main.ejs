@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<style>
+			body {background-color: #add8e6; text-align: center;}
+			header {font-size: 50px}
+		</style>
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+		<title>Welcome</title>
+	</head>
+
+	<body>
+		
+		<header>
+			<h1> Welcome </h1>
+		</header>
+
+		<p>Hello, <%=name%>, welcome to the main page.</p>
+		<p>You are a <%=tier%> </p>
+		
+		<% if (tier!="subscriber") {%>
+			<form action="/subscribe" method="post">
+				<p> Do you want to subscribe to see some premium content? </p>
+	  			<input type="submit" value="SUBSCRIBE"/>
+			</form>
+		<%} else { %>
+			<p> Here is a picture of my cat: </p>
+			<img src='myCat.jpg' alt='Yuumi pics' height=200px, width=auto/>
+			<form action="/unsubscribe" method="post">
+				<p> You can unsubscribe anytime! </p>
+	  			<input type="submit" value="UNSUBSCRIBE"/>
+			</form>
+		<%}%>
+
+		
+	</body>
+
+</html>
