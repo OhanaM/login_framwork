@@ -7,3 +7,13 @@
 
 ### Tech stack
 Node.js, Express, Sqlite3
+
+### Deployment
+You can access this project at http://18.217.218.42:8000/
+Be sure to access it with http
+You can find the api at 
+http://18.217.218.42:8000/api/subscriber/:userID or
+http://18.217.218.42:8000/api/guest/:userID
+For example:
+http://18.217.218.42:8000/api/subscriber/1
+http://18.217.218.42:8000/api/guest/2
