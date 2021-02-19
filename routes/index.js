@@ -83,7 +83,7 @@ app.get('/main', (req, res) => {
   		}
   	})
   } else {
-	res.redirect('/welcome')
+	res.redirect('/')
   }
 })
 
@@ -97,10 +97,10 @@ app.post('/login', ifLoggedin, (req, res, next) => {
     		bcrypt.compare(req.body.password, row.password).then(compare => {
     			if(compare == true) {
     				req.session.isLoggedIn = true;
-                	req.session.userID = row.uid;
-                	let user_name = row.first_name + ' ' + row.last_name
-                	let tier = row.tier;
-                	res.render('main', {name: user_name, tier:tier})
+            req.session.userID = row.uid;
+            let user_name = row.first_name + ' ' + row.last_name
+            let tier = row.tier;
+            res.render('main', {name: user_name, tier:tier})
     			} else {
     				res.render('login', {error: "invalid password"})
     			}
@@ -124,18 +124,18 @@ app.post('/register', body('email', 'invalid email').isEmail(), (req, res, next)
 			} else {
 				bcrypt.hash(req.body.password, saltRounds).then((hash) => {
 	            // Insertion into db
-	            	let sql = `INSERT INTO users (first_name, last_name, email, password, tier) VALUES (?, ?, ?, ?, ?)`;
-	        		let subs_info = [req.body.first_name, req.body.last_name, req.body.email, hash, 'guest'];
-	            	db.run(sql,subs_info, (err, result) => {
-	            		if (err){
-	            			console.log(err);
-	            		}
-	            		res.render('register_success');
-	            	})
-	        	})
-	        	.catch(err => {
-	            	if (err) throw err;
-	        	})
+	        let sql = `INSERT INTO users (first_name, last_name, email, password, tier) VALUES (?, ?, ?, ?, ?)`;
+	        let subs_info = [req.body.first_name, req.body.last_name, req.body.email, hash, 'guest'];
+	        db.run(sql,subs_info, (err, result) => {
+	          if (err){
+	          console.log(err);
+	          }
+	          res.render('register_success');
+	        })
+	      })
+	      .catch(err => {
+	        if (err) throw err;
+	      })
 			}
 
 		})
@@ -164,6 +164,7 @@ app.post('/unsubscribe', (req, res) => {
 	})
 })
 
+// For API
 app.get('/api/guest/:userId', (req, res) => {
     db.get('SELECT * FROM users WHERE tier="guest" AND uid=?', req.params.userId, (err, result) => {
     	if (err) console.log(err.message);
